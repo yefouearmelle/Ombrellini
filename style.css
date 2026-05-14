@@ -9,19 +9,13 @@ body {
     perspective: 1200px;
 }
 
-<<<<<<< HEAD
 .scene {
-=======
-/* Contenitore orbitale dell'ombrellone */
-.umbrella-container {
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
     position: relative;
     width: 300px;
     height: 400px;
     transform-style: preserve-3d;
 }
 
-<<<<<<< HEAD
 /* Ombra proiettata sulla sabbia */
 .shadow {
     position: absolute;
@@ -55,18 +49,11 @@ body {
     cursor: pointer; /* Mostra la manina al passaggio del mouse */
 }
 
-=======
-/* Animazione di rotazione costante a 360 gradi */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
 @keyframes spin {
     from { transform: rotateX(65deg) rotateZ(0deg); }
     to { transform: rotateX(65deg) rotateZ(360deg); }
 }
 
-<<<<<<< HEAD
-=======
-/* L'asta centrale metallica/legno */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
 .pole {
     position: absolute;
     width: 12px;
@@ -78,10 +65,6 @@ body {
     border-radius: 6px;
 }
 
-<<<<<<< HEAD
-=======
-/* Contenitore della struttura tessile */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
 .canopy {
     position: absolute;
     width: 100%;
@@ -89,10 +72,6 @@ body {
     transform-style: preserve-3d;
 }
 
-<<<<<<< HEAD
-=======
-/* Singolo spicchio con transizione meccanica di apertura/chiusura */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
 .segment {
     position: absolute;
     width: 0;
@@ -104,19 +83,10 @@ body {
     border-bottom: 150px solid red;
     transform-origin: top center;
     transform-style: preserve-3d;
-<<<<<<< HEAD
     /* Gestisce l'animazione fluida di apertura/chiusura controllata da JS */
     transition: transform 1.2s ease-in-out; 
 }
 
-=======
-    
-    /* Gestisce il loop automatico di apertura e chiusura */
-    animation: openCloseMechanism 7s infinite ease-in-out;
-}
-
-/* Testo del brand cucito sulla faccia esterna del tessuto */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
 .brand-text {
     position: absolute;
     font-family: 'Arial Black', sans-serif;
@@ -124,29 +94,15 @@ body {
     font-weight: bold;
     color: #ffffff;
     left: -27px; 
-<<<<<<< HEAD
     top: 75px;
     width: 54px;
     text-align: center;
     letter-spacing: 1px;
-=======
-    top: 75px; /* Posizionato al centro dello spicchio */
-    width: 54px;
-    text-align: center;
-    letter-spacing: 1px;
-    
-    /* Distanzia il font dal piano del tessuto per evitare bug grafici (Z-fighting) */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
     transform: translateZ(1px);
     backface-visibility: visible;
 }
 
-<<<<<<< HEAD
 .seg-1 { --rotZ: 0deg; border-bottom-color: #0b0c10; }
-=======
-/* Configurazione geometrica radiale e pattern dei colori */
-.seg-1 { --rotZ: 0deg; border-bottom-color: #0b0c10; } /* Nero per esaltare il brand text */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
 .seg-2 { --rotZ: 45deg; border-bottom-color: #ffffff; }
 .seg-3 { --rotZ: 90deg; border-bottom-color: #ff5252; }
 .seg-4 { --rotZ: 135deg; border-bottom-color: #ffffff; }
@@ -155,7 +111,6 @@ body {
 .seg-7 { --rotZ: 270deg; border-bottom-color: #ff5252; }
 .seg-8 { --rotZ: 315deg; border-bottom-color: #ffffff; }
 
-<<<<<<< HEAD
 /* STATO CHIUSO: Angolo a 4 gradi */
 .umbrella-container.closed .segment {
     transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(4deg);
@@ -166,21 +121,6 @@ body {
     transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(32deg);
 }
 
-=======
-/* CICLO DI APERTURA E CHIUSURA: Variazione dell'angolo dell'asse X */
-@keyframes openCloseMechanism {
-    0%, 100% {
-        /* COMPLETAMENTE CHIUSO: Angolo stretto a 4 gradi (tessuto aderente al palo) */
-        transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(4deg);
-    }
-    45%, 65% {
-        /* COMPLETAMENTE APERTO: Angolo disteso a 32 gradi (massima estensione) */
-        transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(32deg);
-    }
-}
-
-/* Pomello terminale superiore dell'ombrellone */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
 .finial {
     position: absolute;
     width: 20px;
@@ -190,8 +130,6 @@ body {
     left: 50%;
     top: 50%;
     transform: translate3d(-50%, -50%, 4px);
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
+
