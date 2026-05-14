@@ -6,8 +6,10 @@ body {
     align-items: center;
     background: linear-gradient(to bottom, #87CEEB, #FFE4B5);
     overflow: hidden;
-    perspective: 1000px;
+    perspective: 1200px;
 }
+
+/* Contenitore orbitale dell'ombrellone */
 .umbrella-container {
     position: relative;
     width: 300px;
@@ -16,10 +18,14 @@ body {
     transform: rotateX(65deg) rotateY(0deg);
     animation: spin 14s infinite linear;
 }
+
+/* Animazione di rotazione costante a 360 gradi */
 @keyframes spin {
     from { transform: rotateX(65deg) rotateZ(0deg); }
     to { transform: rotateX(65deg) rotateZ(360deg); }
 }
+
+/* L'asta centrale metallica/legno */
 .pole {
     position: absolute;
     width: 12px;
@@ -30,12 +36,16 @@ body {
     transform: translate3d(-50%, -10%, 0) rotateX(-90deg);
     border-radius: 6px;
 }
+
+/* Contenitore della struttura tessile */
 .canopy {
     position: absolute;
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
 }
+
+/* Singolo spicchio con transizione meccanica di apertura/chiusura */
 .segment {
     position: absolute;
     width: 0;
@@ -46,9 +56,32 @@ body {
     border-right: 40px solid transparent;
     border-bottom: 150px solid red;
     transform-origin: top center;
-    animation: openClose 6s infinite ease-in-out;
+    transform-style: preserve-3d;
+    
+    /* Gestisce il loop automatico di apertura e chiusura */
+    animation: openCloseMechanism 7s infinite ease-in-out;
 }
-.seg-1 { --rotZ: 0deg; border-bottom-color: #ff5252; }
+
+/* Testo del brand cucito sulla faccia esterna del tessuto */
+.brand-text {
+    position: absolute;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: #ffffff;
+    left: -27px; 
+    top: 75px; /* Posizionato al centro dello spicchio */
+    width: 54px;
+    text-align: center;
+    letter-spacing: 1px;
+    
+    /* Distanzia il font dal piano del tessuto per evitare bug grafici (Z-fighting) */
+    transform: translateZ(1px);
+    backface-visibility: visible;
+}
+
+/* Configurazione geometrica radiale e pattern dei colori */
+.seg-1 { --rotZ: 0deg; border-bottom-color: #0b0c10; } /* Nero per esaltare il brand text */
 .seg-2 { --rotZ: 45deg; border-bottom-color: #ffffff; }
 .seg-3 { --rotZ: 90deg; border-bottom-color: #ff5252; }
 .seg-4 { --rotZ: 135deg; border-bottom-color: #ffffff; }
@@ -56,10 +89,20 @@ body {
 .seg-6 { --rotZ: 225deg; border-bottom-color: #ffffff; }
 .seg-7 { --rotZ: 270deg; border-bottom-color: #ff5252; }
 .seg-8 { --rotZ: 315deg; border-bottom-color: #ffffff; }
-@keyframes openClose {
-    0%, 100% { transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(5deg); }
-    40%, 70% { transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(30deg); }
+
+/* CICLO DI APERTURA E CHIUSURA: Variazione dell'angolo dell'asse X */
+@keyframes openCloseMechanism {
+    0%, 100% {
+        /* COMPLETAMENTE CHIUSO: Angolo stretto a 4 gradi (tessuto aderente al palo) */
+        transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(4deg);
+    }
+    45%, 65% {
+        /* COMPLETAMENTE APERTO: Angolo disteso a 32 gradi (massima estensione) */
+        transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(32deg);
+    }
 }
+
+/* Pomello terminale superiore dell'ombrellone */
 .finial {
     position: absolute;
     width: 20px;
@@ -68,5 +111,5 @@ body {
     border-radius: 50%;
     left: 50%;
     top: 50%;
-    transform: translate3d(-50%, -50%, 5px);
+    transform: translate3d(-50%, -50%, 4px);
 }
