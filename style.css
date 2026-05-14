@@ -6,20 +6,54 @@ body {
     align-items: center;
     background: linear-gradient(to bottom, #87CEEB, #FFE4B5);
     overflow: hidden;
-    perspective: 1000px;
+    perspective: 1200px;
 }
-.umbrella-container {
+
+.scene {
     position: relative;
     width: 300px;
     height: 400px;
     transform-style: preserve-3d;
-    transform: rotateX(65deg) rotateY(0deg);
-    animation: spin 14s infinite linear;
 }
+
+/* Ombra proiettata sulla sabbia */
+.shadow {
+    position: absolute;
+    left: 50%;
+    top: 65%;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotateX(65deg);
+    filter: blur(8px);
+    /* Transizione fluida per il cambio di dimensione dell'ombra */
+    transition: transform 1.2s ease-in-out, width 1.2s ease-in-out, height 1.2s ease-in-out;
+    pointer-events: none; /* Evita che l'ombra blocchi il clic sull'ombrellone */
+}
+
+/* Quando l'ombrellone è aperto, l'ombra diventa più grande e sfumata */
+.shadow.expanded {
+    width: 180px;
+    height: 180px;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.umbrella-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateX(65deg) rotateZ(0deg);
+    animation: spin 14s infinite linear;
+    cursor: pointer; /* Mostra la manina al passaggio del mouse */
+}
+
 @keyframes spin {
     from { transform: rotateX(65deg) rotateZ(0deg); }
     to { transform: rotateX(65deg) rotateZ(360deg); }
 }
+
 .pole {
     position: absolute;
     width: 12px;
@@ -30,12 +64,14 @@ body {
     transform: translate3d(-50%, -10%, 0) rotateX(-90deg);
     border-radius: 6px;
 }
+
 .canopy {
     position: absolute;
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
 }
+
 .segment {
     position: absolute;
     width: 0;
@@ -46,9 +82,27 @@ body {
     border-right: 40px solid transparent;
     border-bottom: 150px solid red;
     transform-origin: top center;
-    animation: openClose 6s infinite ease-in-out;
+    transform-style: preserve-3d;
+    /* Gestisce l'animazione fluida di apertura/chiusura controllata da JS */
+    transition: transform 1.2s ease-in-out; 
 }
-.seg-1 { --rotZ: 0deg; border-bottom-color: #ff5252; }
+
+.brand-text {
+    position: absolute;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: #ffffff;
+    left: -27px; 
+    top: 75px;
+    width: 54px;
+    text-align: center;
+    letter-spacing: 1px;
+    transform: translateZ(1px);
+    backface-visibility: visible;
+}
+
+.seg-1 { --rotZ: 0deg; border-bottom-color: #0b0c10; }
 .seg-2 { --rotZ: 45deg; border-bottom-color: #ffffff; }
 .seg-3 { --rotZ: 90deg; border-bottom-color: #ff5252; }
 .seg-4 { --rotZ: 135deg; border-bottom-color: #ffffff; }
@@ -56,10 +110,17 @@ body {
 .seg-6 { --rotZ: 225deg; border-bottom-color: #ffffff; }
 .seg-7 { --rotZ: 270deg; border-bottom-color: #ff5252; }
 .seg-8 { --rotZ: 315deg; border-bottom-color: #ffffff; }
-@keyframes openClose {
-    0%, 100% { transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(5deg); }
-    40%, 70% { transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(30deg); }
+
+/* STATO CHIUSO: Angolo a 4 gradi */
+.umbrella-container.closed .segment {
+    transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(4deg);
 }
+
+/* STATO APERTO: Angolo a 32 gradi */
+.umbrella-container.open .segment {
+    transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(32deg);
+}
+
 .finial {
     position: absolute;
     width: 20px;
@@ -68,5 +129,5 @@ body {
     border-radius: 50%;
     left: 50%;
     top: 50%;
-    transform: translate3d(-50%, -50%, 5px);
+    transform: translate3d(-50%, -50%, 4px);
 }

@@ -1,26 +1,42 @@
-html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Opening Umbrella</title>
+    <title>Interactive 3D Umbrella - Akkodis</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="umbrella-container">
-        <div class="finial"></div>
-        <div class="canopy">
-            <div class="segment seg-1"></div>
-            <div class="segment seg-2"></div>
-            <div class="segment seg-3"></div>
-            <div class="segment seg-4"></div>
-            <div class="segment seg-5"></div>
-            <div class="segment seg-6"></div>
-            <div class="segment seg-7"></div>
-            <div class="segment seg-8"></div>
+
+    <!-- Contenitore dell'intera scena -->
+    <div class="scene">
+        
+        <!-- Ombra dinamica sulla sabbia -->
+        <div id="umbrella-shadow" class="shadow"></div>
+
+        <!-- Struttura 3D dell'ombrellone (inizialmente chiuso) -->
+        <div id="umbrella" class="umbrella-container closed">
+            <div class="finial"></div>
+            
+            <div class="canopy">
+                <div class="segment seg-1">
+                    <span class="brand-text">AKKODIS</span>
+                </div>
+                <div class="segment seg-2"></div>
+                <div class="segment seg-3"></div>
+                <div class="segment seg-4"></div>
+                <div class="segment seg-5"></div>
+                <div class="segment seg-6"></div>
+                <div class="segment seg-7"></div>
+                <div class="segment seg-8"></div>
+            </div>
+            
+            <div class="pole"></div>
         </div>
-        <div class="pole"></div>
+
     </div>
+
+    <!-- Collegamento alla logica Javascript -->
+    <script src="script.js"></script>
 </body>
 </html>
