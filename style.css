@@ -27,9 +27,8 @@ body {
     border-radius: 50%;
     transform: translate(-50%, -50%) rotateX(65deg);
     filter: blur(8px);
-    /* Transizione fluida per il cambio di dimensione dell'ombra */
     transition: transform 1.2s ease-in-out, width 1.2s ease-in-out, height 1.2s ease-in-out;
-    pointer-events: none; /* Evita che l'ombra blocchi il clic sull'ombrellone */
+    pointer-events: none; /* FIX: L'ombra non blocca il mouse */
 }
 
 /* Quando l'ombrellone è aperto, l'ombra diventa più grande e sfumata */
@@ -46,7 +45,8 @@ body {
     transform-style: preserve-3d;
     transform: rotateX(65deg) rotateZ(0deg);
     animation: spin 14s infinite linear;
-    cursor: pointer; /* Mostra la manina al passaggio del mouse */
+    cursor: pointer;
+    pointer-events: auto; /* FIX 1: Forza il contenitore a intercettare il clic */
 }
 
 @keyframes spin {
@@ -63,6 +63,7 @@ body {
     top: 50%;
     transform: translate3d(-50%, -10%, 0) rotateX(-90deg);
     border-radius: 6px;
+    pointer-events: none; /* FIX 2: Evita conflitti di clic */
 }
 
 .canopy {
@@ -70,6 +71,7 @@ body {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
+    pointer-events: none; /* FIX 2: Evita conflitti di clic */
 }
 
 .segment {
@@ -83,8 +85,9 @@ body {
     border-bottom: 150px solid red;
     transform-origin: top center;
     transform-style: preserve-3d;
-    /* Gestisce l'animazione fluida di apertura/chiusura controllata da JS */
-    transition: transform 1.2s ease-in-out; 
+    /* FIX 3: Cambiato da 'transform' a 'all' per includere tutte le variazioni geometriche */
+    transition: all 1.2s ease-in-out; 
+    pointer-events: none; /* FIX 2: Evita conflitti di clic */
 }
 
 .brand-text {
@@ -100,6 +103,7 @@ body {
     letter-spacing: 1px;
     transform: translateZ(1px);
     backface-visibility: visible;
+    pointer-events: none; /* FIX 2: Evita conflitti di clic */
 }
 
 .seg-1 { --rotZ: 0deg; border-bottom-color: #0b0c10; }
@@ -130,6 +134,5 @@ body {
     left: 50%;
     top: 50%;
     transform: translate3d(-50%, -50%, 4px);
-
+    pointer-events: none; /* FIX 2: Evita conflitti di clic */
 }
-
