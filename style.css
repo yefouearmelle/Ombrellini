@@ -1,197 +1,216 @@
-body {
+* {
+    box-sizing: border-box;
+}
+
+body, html {
     margin: 0;
-    height: 100vh;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom, #1e3c72, #2a5298);
+    transition: background 2s ease;
+}
+
+body.stormy {
+    background: linear-gradient(to bottom, #09141a, #12222d, #1a303d);
+}
+
+.rain-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 130%; 
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.drop {
+    position: absolute;
+    background: linear-gradient(transparent, #74b9ff);
+    width: 1.8px;
+    height: 38px;
+    opacity: 0.7;
+    transform: rotate(-22deg);
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-50px) translateX(0) rotate(-22deg); }
+    100% { transform: translateY(105vh) translateX(-250px) rotate(-22deg); }
+}
+
+.pepper-drop {
+    position: absolute;
+    background: radial-gradient(circle, rgba(234, 32, 39, 0.9) 0%, rgba(234, 32, 39, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: pepperSprayAnim 0.6s ease-out forwards;
+}
+
+@keyframes pepperSprayAnim {
+    0% { transform: scale(1); opacity: 0.9; }
+    100% { transform: translate(-200px, 80px) scale(8); opacity: 0; }
+}
+
+.splash {
+    position: absolute;
+    background-color: #a1c4fd;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.8;
+    animation: splashAnim 0.4s ease-out forwards;
+}
+
+@keyframes splashAnim {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+    100% { transform: translate(var(--mx), var(--my)) scale(0.2); opacity: 0; }
+}
+
+.stage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, #87CEEB, #FFE4B5);
-    overflow: hidden;
-    perspective: 1200px;
 }
 
-<<<<<<< HEAD
-.scene {
-=======
-/* Contenitore orbitale dell'ombrellone */
-.umbrella-container {
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
-    position: relative;
-    width: 300px;
-    height: 400px;
-    transform-style: preserve-3d;
+#umbrella-svg {
+    width: 60vh;
+    height: 82vh;
+    overflow: visible;
+    transition: transform 0.5s ease;
 }
 
-<<<<<<< HEAD
-/* Ombra proiettata sulla sabbia */
-.shadow {
+#canopy-group {
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    transform-origin: 50% 15%;
+}
+
+#canopy-group.folded {
+    transform: scaleX(0.15) translateY(4px);
+}
+
+.rainbow-canopy {
+    animation: rainbowShift 8s linear infinite;
+}
+
+@keyframes rainbowShift {
+    0% { stop-color: #ff4757; }
+    17% { stop-color: #ffa502; }
+    34% { stop-color: #2ed573; }
+    51% { stop-color: #1e90ff; }
+    68% { stop-color: #3742fa; }
+    85% { stop-color: #9b59b6; }
+    100% { stop-color: #ff4757; }
+}
+
+.hover-effect {
+    animation: floatCalm 4.5s ease-in-out infinite;
+}
+
+@keyframes floatCalm {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-18px) rotate(2deg); }
+}
+
+.storm-effect {
+    animation: floatStorm 1.1s ease-in-out infinite alternate;
+}
+
+@keyframes floatStorm {
+    0% { transform: translateY(-5px) rotate(-16deg) translateX(5px); } 
+    50% { transform: translateY(12px) rotate(-7deg) translateX(-5px); }
+    100% { transform: translateY(-12px) rotate(-20deg) translateX(12px); }
+}
+
+.talking-beak {
+    animation: chirp 0.22s ease-in-out infinite alternate;
+    transform-origin: -10px 18px;
+}
+
+@keyframes chirp {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-15deg); }
+}
+
+#blade {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: scaleY(0);
+    transform-origin: 100px 150px;
+}
+#blade.drawn {
+    transform: scaleY(1);
+}
+
+.subtitles-container {
     position: absolute;
-    left: 50%;
-    top: 65%;
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 50%;
-    transform: translate(-50%, -50%) rotateX(65deg);
-    filter: blur(8px);
-    /* Transizione fluida per il cambio di dimensione dell'ombra */
-    transition: transform 1.2s ease-in-out, width 1.2s ease-in-out, height 1.2s ease-in-out;
-    pointer-events: none; /* Evita che l'ombra blocchi il clic sull'ombrellone */
-}
-
-/* Quando l'ombrellone è aperto, l'ombra diventa più grande e sfumata */
-.shadow.expanded {
-    width: 180px;
-    height: 180px;
-    background: rgba(0, 0, 0, 0.15);
-}
-
-.umbrella-container {
-    position: absolute;
+    bottom: 6%;
     width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transform: rotateX(65deg) rotateZ(0deg);
-    animation: spin 14s infinite linear;
-    cursor: pointer; /* Mostra la manina al passaggio del mouse */
+    text-align: center;
+    z-index: 4;
+    padding: 0 20px;
 }
 
-=======
-/* Animazione di rotazione costante a 360 gradi */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
-@keyframes spin {
-    from { transform: rotateX(65deg) rotateZ(0deg); }
-    to { transform: rotateX(65deg) rotateZ(360deg); }
-}
-
-<<<<<<< HEAD
-=======
-/* L'asta centrale metallica/legno */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
-.pole {
-    position: absolute;
-    width: 12px;
-    height: 350px;
-    background: linear-gradient(to right, #d7ccc8, #8d6e63, #d7ccc8);
-    left: 50%;
-    top: 50%;
-    transform: translate3d(-50%, -10%, 0) rotateX(-90deg);
-    border-radius: 6px;
-}
-
-<<<<<<< HEAD
-=======
-/* Contenitore della struttura tessile */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
-.canopy {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-}
-
-<<<<<<< HEAD
-=======
-/* Singolo spicchio con transizione meccanica di apertura/chiusura */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
-.segment {
-    position: absolute;
-    width: 0;
-    height: 0;
-    left: 50%;
-    top: 50%;
-    border-left: 40px solid transparent;
-    border-right: 40px solid transparent;
-    border-bottom: 150px solid red;
-    transform-origin: top center;
-    transform-style: preserve-3d;
-<<<<<<< HEAD
-    /* Gestisce l'animazione fluida di apertura/chiusura controllata da JS */
-    transition: transform 1.2s ease-in-out; 
-}
-
-=======
-    
-    /* Gestisce il loop automatico di apertura e chiusura */
-    animation: openCloseMechanism 7s infinite ease-in-out;
-}
-
-/* Testo del brand cucito sulla faccia esterna del tessuto */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
-.brand-text {
-    position: absolute;
-    font-family: 'Arial Black', sans-serif;
-    font-size: 10px;
-    font-weight: bold;
+.subtitles {
+    font-size: 1.8rem;
     color: #ffffff;
-    left: -27px; 
-<<<<<<< HEAD
-    top: 75px;
-    width: 54px;
-    text-align: center;
-    letter-spacing: 1px;
-=======
-    top: 75px; /* Posizionato al centro dello spicchio */
-    width: 54px;
-    text-align: center;
-    letter-spacing: 1px;
-    
-    /* Distanzia il font dal piano del tessuto per evitare bug grafici (Z-fighting) */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
-    transform: translateZ(1px);
-    backface-visibility: visible;
+    font-weight: 600;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    transition: all 0.4s ease;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 12px 35px;
+    border-radius: 30px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-<<<<<<< HEAD
-.seg-1 { --rotZ: 0deg; border-bottom-color: #0b0c10; }
-=======
-/* Configurazione geometrica radiale e pattern dei colori */
-.seg-1 { --rotZ: 0deg; border-bottom-color: #0b0c10; } /* Nero per esaltare il brand text */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
-.seg-2 { --rotZ: 45deg; border-bottom-color: #ffffff; }
-.seg-3 { --rotZ: 90deg; border-bottom-color: #ff5252; }
-.seg-4 { --rotZ: 135deg; border-bottom-color: #ffffff; }
-.seg-5 { --rotZ: 180deg; border-bottom-color: #ff5252; }
-.seg-6 { --rotZ: 225deg; border-bottom-color: #ffffff; }
-.seg-7 { --rotZ: 270deg; border-bottom-color: #ff5252; }
-.seg-8 { --rotZ: 315deg; border-bottom-color: #ffffff; }
-
-<<<<<<< HEAD
-/* STATO CHIUSO: Angolo a 4 gradi */
-.umbrella-container.closed .segment {
-    transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(4deg);
-}
-
-/* STATO APERTO: Angolo a 32 gradi */
-.umbrella-container.open .segment {
-    transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(32deg);
-}
-
-=======
-/* CICLO DI APERTURA E CHIUSURA: Variazione dell'angolo dell'asse X */
-@keyframes openCloseMechanism {
-    0%, 100% {
-        /* COMPLETAMENTE CHIUSO: Angolo stretto a 4 gradi (tessuto aderente al palo) */
-        transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(4deg);
-    }
-    45%, 65% {
-        /* COMPLETAMENTE APERTO: Angolo disteso a 32 gradi (massima estensione) */
-        transform: translate(-50%, -50%) rotateZ(var(--rotZ)) rotateX(32deg);
-    }
-}
-
-/* Pomello terminale superiore dell'ombrellone */
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
-.finial {
+.controls {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    background: #ffeb3b;
-    border-radius: 50%;
-    left: 50%;
-    top: 50%;
-    transform: translate3d(-50%, -50%, 4px);
-<<<<<<< HEAD
+    top: 30px;
+    right: 30px;
+    z-index: 5;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 530px;
 }
-=======
+
+.btn {
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    padding: 12px 22px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
 }
->>>>>>> e6b649a565c47244802b4e21839825285cdaa3ea
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+}
+
+.btn.active {
+    background: #e53e3e;
+    border-color: #e53e3e;
+}
+
+.btn-tactical {
+    background: rgba(44, 62, 80, 0.8);
+    border-color: #34495e;
+}
+.btn-tactical:hover {
+    background: rgba(52, 152, 219, 0.9);
+}
